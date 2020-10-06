@@ -16,7 +16,7 @@ services:
       - 2000:80
 
   sudoku:
-    # image: pg/sudoku
+    # image: pg/sudoku1
     build: ./services/sudoku
     container_name: pg-sudoku
     # ports:
