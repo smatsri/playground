@@ -1,0 +1,69 @@
+body {
+  font-family: Verdana, Helvetica, Arial, Courier, Times, Times New Roman;
+}
+
+.sudoku {
+  display: grid;
+  grid-template-columns: 800px 60px;
+}
+
+.board {
+  width: 800px;
+  height: 800px;
+}
+
+.blocks {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 4px;
+  background-color: rgb(119, 119, 119);
+  border: 4px solid rgb(119, 119, 119);
+  box-sizing: border-box;
+}
+
+.block {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  background-color: rgb(119, 119, 119);
+  grid-gap: 1px;
+}
+
+.board .cell.selected {
+  color: blue;
+  font-weight: bold;
+}
+
+.block > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  font-size: 2.5em;
+}
+
+.block .empty {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  font-size: 0.8em;
+}
+.block .empty > div {
+  height: 100%;
+}
+.numbers {
+  display: flex;
+  flex-direction: column;
+}
+
+.numbers .cell {
+  width: 50px;
+  height: 50px;
+}
+.numbers .cell.selected {
+  color: blue;
+  font-weight: bold;
+}

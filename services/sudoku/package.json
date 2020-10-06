@@ -1,0 +1,41 @@
+{
+  "name": "sudoku",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pm2": "pm2 start --name=sudoku-api node dist/server.js",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "serve": "node dist/server.js --port 4001",
+    "serve-debug": "nodemon --inspect dist/server.js --port 4001",
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/express-jwt": "0.0.42",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "mongo": "^0.1.0",
+    "mongodb": "^3.6.1",
+    "mongoose": "^5.10.5",
+    "node-html-parser": "^1.1.16",
+    "request": "^2.88.0",
+    "winston": "^3.2.1",
+    "yargs": "^16.0.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@types/mongodb": "^3.5.27",
+    "@types/mongoose": "^5.7.36",
+    "@types/request": "^2.48.3",
+    "@types/winston": "^2.4.4",
+    "@types/yargs": "^15.0.7",
+    "concurrently": "^5.0.0",
+    "typescript": "^3.6.4"
+  }
+}

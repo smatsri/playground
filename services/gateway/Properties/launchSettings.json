@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "ApiGateway": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "dev"
+      },
+      "applicationUrl": "http://localhost:3100"
+    }
+  }
+}

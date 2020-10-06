@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:2001/api/identity
+# @baseUrl = http://localhost:4003/api
+
+###
+POST {{baseUrl}}/user/login
+Content-Type: application/json
+
+{
+  "username": "shai",
+  "password": "123456"
+}
+
+###
+# @name token
+GET {{baseUrl}}/user/token
+
+@authToken = {{token.response.body.$.token}}
+
+###
+# @name profile
+GET {{baseUrl}}/user/profile
+
+### 
+# @name sudoku
+GET {{baseUrl}}/sudoku/api/user
+Authorization: Bearer {{authToken}}
+
+# ###
+# GET http://localhost:2002/api/user/token
+
+# ###
+# POST http://localhost:2002/api/user/logout
+
+# ###
+# GET http://localhost:3100/sudoku/api/pazzle

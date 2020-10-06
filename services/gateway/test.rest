@@ -1,0 +1,4 @@
+@baseUrl = http://localhost:3100/api
+
+### 
+GET {{baseUrl}}/sudoku/pazzle

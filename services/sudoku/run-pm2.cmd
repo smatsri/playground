@@ -1,0 +1,1 @@
+pm2 --name="sudoku-api" start node -- dist/server.js

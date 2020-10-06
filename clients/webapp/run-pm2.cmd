@@ -1,0 +1,1 @@
+pm2 --name="ui" start node -- server.js

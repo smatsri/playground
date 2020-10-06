@@ -1,0 +1,22 @@
+{
+  "$$": {
+    "matches": [
+      {
+        "match": {
+          "username": "shai",
+          "password": "123456"
+        },
+        "data": {
+          "success": true
+        },
+        "statusCode": 200
+      }
+    ],
+    "default": {
+      "data": {
+        "message": "unauthorized"
+      },
+      "statusCode": 401
+    }
+  }
+}
