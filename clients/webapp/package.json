@@ -7,7 +7,7 @@
     "serve": "node ./server.js --port 4002",
     "build": "set PUBLIC_URL=.&& react-scripts build",
     "pm2": "pm2 start --name=ui npm -- serve",
-    "dev-api": "dir-api --baseDir=dev-api --port=4003"
+    "dev-api": "dir-api --baseDir=dev-api --port=4003 --origin=http://localhost:3000"
   },
   "dependencies": {
     "@microsoft/signalr": "^3.1.3",
@@ -19,7 +19,7 @@
     "react-dom": "^16.10.2",
     "react-hook-form": "^6.8.6",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "^3.4.4",
     "request": "^2.88.0",
     "rxjs": "^6.6.3",
     "rxjs-hooks": "^0.6.2",
@@ -34,7 +34,7 @@
     "@types/react-dom": "16.9.1",
     "@types/react-router-dom": "^5.1.0",
     "@types/styled-components": "^4.1.19",
-    "dir-api": "^1.1.2",
+    "dir-api": "1.3.2",
     "typescript": "3.6.3"
   },
   "eslintConfig": {
