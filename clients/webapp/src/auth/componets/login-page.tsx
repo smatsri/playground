@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../context";
 
 
@@ -16,8 +17,11 @@ type FormState = {
 const LoginForm = () => {
   const auth = useAuth();
   const { handleSubmit, register, errors } = useForm<FormState>();
-  const onSubmit = (values: FormState) => {
-    auth.login(values.username, values.password);
+  const history = useHistory();
+
+  const onSubmit = async (values: FormState) => {
+    await auth.login(values.username, values.password);
+    history.push('/');
   }
 
   return (
