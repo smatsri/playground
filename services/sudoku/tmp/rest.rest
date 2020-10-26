@@ -1,32 +1,39 @@
 ###
-POST http://localhost:2001/api/identity/user/login
+@baseUrl = http://localhost:2001
+POST {{baseUrl}}/api/identity/user/login
 Content-Type: application/json
 
 {"username":"shai","password":"123456"}
 
 ###
 # @name token
-GET http://localhost:2001/api/identity/user/token
+GET {{baseUrl}}/api/identity/user/token
 
 @authToken = {{token.response.body.token}}
 
+@sudokuBaseUrl = http://localhost:4001/api
+#@sudokuBaseUrl = http://localhost:2001/api/sudoku
+
+###
+GET http://localhost:2001/api/sudoku/test
+
 ###
 # @name pazzle
-GET http://localhost:4001/api/pazzle
+GET {{sudokuBaseUrl}}/pazzle
 
 @pazzleId = {{pazzle.response.body.id}}
 
 ###
-GET http://localhost:4001/api/pazzle/{{pazzleId}}
+GET {{sudokuBaseUrl}}/pazzle/{{pazzleId}}
 
 
 ###
-GET http://localhost:4001/api/user
+GET {{sudokuBaseUrl}}/user
 Authorization: Bearer {{authToken}}
 
 ###
 
-POST http://localhost:4001/api/user
+POST {{sudokuBaseUrl}}/user/pazzle
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 

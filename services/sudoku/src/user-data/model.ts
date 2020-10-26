@@ -9,13 +9,20 @@ export interface UserData {
   pazzles: Pazzle[]
 }
 
-export const emptyState: UserData = {
-  username: "guest",
+export const emptyState = (username: string): UserData => ({
+  username,
   pazzles: []
-}
+})
 
-export const addPazzle = (doc: UserData, pazzle: Pazzle) => {
+export const savePazzle = (doc: UserData, pazzle: Pazzle) => {
   const pazzles = (doc.pazzles || [])
-  pazzles.push(pazzle)
+
+  const index = doc.pazzles.findIndex(p => p.pazzleId === pazzle.pazzleId);
+  if (index > -1) {
+    pazzles[index] = pazzle;
+  } else {
+    pazzles.push(pazzle)
+  }
+
   doc.pazzles = pazzles;
 }

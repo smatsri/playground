@@ -1,5 +1,5 @@
 import { model, Schema, Document } from "mongoose";
-import { addPazzle, emptyState, Pazzle, UserData } from "./model";
+import { savePazzle as updatePazzle, emptyState, Pazzle, UserData } from "./model";
 
 type UserDoc = Document & UserData
 
@@ -13,25 +13,26 @@ const UserDataSchema = new Schema({
 });
 const UserData = model<UserDoc>('user-data', UserDataSchema, "user-data");
 
-export const savePazzle = async (username: string, pazzle: Pazzle) => {
+export const getUserStateDoc = async (username: string) => {
   const exists = await UserData.exists({ username })
   if (exists) {
-    const doc = await UserData.findOne({ username }).exec();
-    addPazzle(doc, pazzle)
-    await doc.save();
+    return await UserData.findOne({ username }).exec();
   } else {
-    await UserData.create(emptyState);
+    return await UserData.create(emptyState(username));
   }
 }
 
-export const getUserState = async (username: string): Promise<UserData> => {
-  const doc = await UserData.findOne({ username }).exec();
-  if (doc) {
-    return {
-      pazzles: doc.pazzles,
-      username
-    }
-  }
-
-  return emptyState
+export const savePazzle = async (username: string, pazzle: Pazzle) => {
+  const doc = await getUserStateDoc(username);
+  updatePazzle(doc, pazzle)
+  await doc.save();
 }
+
+export const getUserState = async (username: string) => {
+  const doc = await getUserStateDoc(username);
+  return {
+    username: doc.username,
+    pazzles: doc.pazzles
+  }
+}
+

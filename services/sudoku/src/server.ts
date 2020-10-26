@@ -18,8 +18,8 @@ pazzles(app);
 
 userData(app);
 
-app.get("/api", (_, res) => {
-  res.send("sudoku api");
+app.get("/api/test", (_, res) => {
+  res.send("ok");
 });
 
 app.listen(port, () => {

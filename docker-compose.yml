@@ -10,7 +10,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - 27017:27017
-      
+
   mongo-express:
     image: mongo-express
     container_name: pg-mongo-express
@@ -39,6 +39,8 @@ services:
     # image: pg/sudoku1
     build: ./services/sudoku
     container_name: pg-sudoku
+    environment:
+      MONGO_CONNSTR: mongodb://root:example@mongo:27017/sudoku-db?authSource=admin&readPreference=primary&ssl=false
     # ports:
     #   - 2003:80
 
