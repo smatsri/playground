@@ -13,8 +13,12 @@ export const setUserState = async (pazzle: Pazzle) => {
 
 const getPazzleUrl = (id?: number) => id ? "sudoku/pazzle/" + id : "sudoku/pazzle/";
 
-export const getPazzle = async (pazzleId?: number) => {
+export const getPazzle = async (pazzleId?: number): Promise<Pazzle> => {
   const url = getPazzleUrl(pazzleId)
-  const res = await api.get<Pazzle>(url);
-  return res.data;
+  const res = await api.get<any>(url);
+
+  return {
+    input: res.data.input,
+    pazzleId: res.data.id
+  };
 }

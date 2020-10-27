@@ -30,6 +30,7 @@ export const savePazzle = async (username: string, pazzle: Pazzle) => {
 
 export const getUserState = async (username: string) => {
   const doc = await getUserStateDoc(username);
+
   return {
     username: doc.username,
     pazzles: doc.pazzles
