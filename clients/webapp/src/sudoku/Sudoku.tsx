@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSudoku } from "./useSudoku";
+import { OnInputChange, useSudoku } from "./useSudoku";
 import { blocksIndexs } from "./helpers";
-import { SudokuState } from "./types";
-import * as api from "../api";
+import { Pazzle, SudokuState } from "./types";
+import { getPazzle, getUserState, setUserState } from "./api";
+
 
 type AvailableProps = {
   visible: number[];
@@ -145,10 +146,12 @@ const Timer = ({ totalSec, isRunning, start, stop }: TimerProps) => {
 
 type SudokuProps = {
   input: number[];
-  pazzleId: string;
+  pazzleId: number;
+  onChange?: OnInputChange
+  onNewGame?: () => void
 };
 const Sudoku = (sudoku: SudokuProps) => {
-  const state = useSudoku(sudoku.input);
+  const state = useSudoku(sudoku.input, sudoku.onChange);
 
   return (
     <div className="sudoku">
@@ -167,25 +170,48 @@ const Sudoku = (sudoku: SudokuProps) => {
           stop={state.stopTimer}
         />
         <div>{sudoku.pazzleId}</div>
+        <button onClick={sudoku.onNewGame}>New Game</button>
       </div>
     </div>
   );
 };
 
 const SudokuWrapper = () => {
-  const [input, setInput] = useState<any>();
-  const [pazzleId, setPazzleId] = useState<any>();
-  useEffect(() => {
-    if (input) return;
-    api.get<any>("sudoku/pazzle")
-      .then(({ data }) => {
-        setInput(data.input);
-        setPazzleId(data.id);
-      });
-  }, [input]);
+  const [pazzle, setPazzle] = useState<Pazzle>();
 
-  return input ? (
-    <Sudoku input={input} pazzleId={pazzleId} />
+  useEffect(() => {
+    const fn = async () => {
+      const userState = await getUserState()
+      if (userState.pazzles.length > 0) {
+        setPazzle(userState.pazzles[0]);
+      } else {
+        const pazzle = await getPazzle();
+        await setUserState(pazzle)
+        setPazzle(pazzle);
+      }
+
+    }
+    fn();
+  }, [])
+
+  const onChange = async (input: number[]) => {
+    if (!pazzle) return;
+    await setUserState({ pazzleId: pazzle.pazzleId, input })
+    console.log('userstate saved');
+  }
+
+  const onNewGame = async () => {
+    setPazzle(undefined);
+    const p = await getPazzle();
+    await setUserState(p)
+    setPazzle(p);
+  }
+
+  return pazzle ? (
+    <Sudoku input={pazzle.input}
+      pazzleId={pazzle.pazzleId}
+      onChange={(a) => onChange(a)}
+      onNewGame={onNewGame} />
   ) : (
       <div>loading</div>
     );

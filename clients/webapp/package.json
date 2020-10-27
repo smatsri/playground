@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "dev-api": "dir-api --baseDir=dev-api --port=4003 --origin=http://localhost:3000",
     "start": "react-scripts start",
     "serve": "node ./server.js --port 4002",
     "build": "set PUBLIC_URL=.&& react-scripts build",
-    "pm2": "pm2 start --name=ui npm -- serve",
-    "dev-api": "dir-api --baseDir=dev-api --port=4003 --origin=http://localhost:3000"
+    "pm2": "pm2 start --name=ui npm -- serve"
   },
   "dependencies": {
     "@microsoft/signalr": "^3.1.3",

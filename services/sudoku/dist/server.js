@@ -17,8 +17,8 @@ app.use(cors_1.default());
 app.use(body_parser_1.default());
 pazzles_1.default(app);
 user_data_1.default(app);
-app.get("/api", (_, res) => {
-    res.send("sudoku api");
+app.get("/api/test", (_, res) => {
+    res.send("ok");
 });
 app.listen(port, () => {
     data_1.connect();

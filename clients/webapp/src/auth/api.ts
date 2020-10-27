@@ -17,6 +17,3 @@ export const logout = (): Promise<any> =>
 
 export const profile = (): Promise<{ username: string }> =>
   axios.get(baseIdentityUrl + "profile");
-
-
-console.log(123)

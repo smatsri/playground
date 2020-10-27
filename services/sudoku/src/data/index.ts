@@ -1,11 +1,9 @@
 import { connect as _connnect, connection, Connection, Schema, model, disconnect as _disconnect } from "mongoose";
+import { mongoConStr } from "../config";
 let database: Connection;
 
-
-
 export const connect = () => {
-  // add your own uri below
-  const uri = "mongodb://root:example@localhost:27017/sudoku-db?authSource=admin&readPreference=primary&ssl=false";
+  const uri = mongoConStr;
   if (database) {
     return;
   }

@@ -1,36 +1,42 @@
 ###
-POST http://localhost:2001/api/identity/user/login
+@baseUrl = http://localhost:2001
+POST {{baseUrl}}/api/identity/user/login
 Content-Type: application/json
 
 {"username":"shai","password":"123456"}
 
 ###
 # @name token
-GET http://localhost:2001/api/identity/user/token
+GET {{baseUrl}}/api/identity/user/token
 
 @authToken = {{token.response.body.token}}
 
+#@sudokuBaseUrl = http://localhost:4001/api
+@sudokuBaseUrl = http://localhost:2001/api/sudoku
+
+###
+GET http://localhost:2001/api/sudoku/test
+
 ###
 # @name pazzle
-GET http://localhost:4001/api/pazzle
+GET {{sudokuBaseUrl}}/pazzle
 
 @pazzleId = {{pazzle.response.body.id}}
 
 ###
-GET http://localhost:4001/api/pazzle/{{pazzleId}}
-
-
-###
-GET http://localhost:4001/api/user
-Authorization: Bearer {{authToken}}
+GET {{sudokuBaseUrl}}/pazzle/{{pazzleId}}
 
 ###
-
-POST http://localhost:4001/api/user
+POST http://localhost:2001/api/sudoku/user/pazzle
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "input":[1,6,0,0,0,0,0,0,0,7,0,2,0,3,0,0,0,0,0,0,3,6,0,0,0,0,0,0,0,6,9,0,0,0,0,2,0,0,1,0,4,0,0,3,7,2,0,0,0,0,0,0,8,0,0,0,0,0,0,2,5,0,0,0,0,8,0,0,9,7,4,1,0,3,9,0,0,0,0,0,0],
-  "id":276042966
+  "input":[2,6,0,0,0,0,0,0,0,7,0,2,0,3,0,0,0,0,0,0,3,6,0,0,0,0,0,0,0,6,9,0,0,0,0,2,0,0,1,0,4,0,0,3,7,2,0,0,0,0,0,0,8,0,0,0,0,0,0,2,5,0,0,0,0,8,0,0,9,7,4,1,0,3,9,0,0,0,0,0,0],
+  "pazzleId":276042966
 }
+
+###
+GET {{sudokuBaseUrl}}/user
+Authorization: Bearer {{authToken}}
+
