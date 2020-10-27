@@ -11,8 +11,8 @@ GET {{baseUrl}}/api/identity/user/token
 
 @authToken = {{token.response.body.token}}
 
-@sudokuBaseUrl = http://localhost:4001/api
-#@sudokuBaseUrl = http://localhost:2001/api/sudoku
+#@sudokuBaseUrl = http://localhost:4001/api
+@sudokuBaseUrl = http://localhost:2001/api/sudoku
 
 ###
 GET http://localhost:2001/api/sudoku/test
@@ -26,18 +26,17 @@ GET {{sudokuBaseUrl}}/pazzle
 ###
 GET {{sudokuBaseUrl}}/pazzle/{{pazzleId}}
 
+###
+POST http://localhost:2001/api/sudoku/user/pazzle
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "input":[2,6,0,0,0,0,0,0,0,7,0,2,0,3,0,0,0,0,0,0,3,6,0,0,0,0,0,0,0,6,9,0,0,0,0,2,0,0,1,0,4,0,0,3,7,2,0,0,0,0,0,0,8,0,0,0,0,0,0,2,5,0,0,0,0,8,0,0,9,7,4,1,0,3,9,0,0,0,0,0,0],
+  "pazzleId":276042966
+}
 
 ###
 GET {{sudokuBaseUrl}}/user
 Authorization: Bearer {{authToken}}
 
-###
-
-POST {{sudokuBaseUrl}}/user/pazzle
-Authorization: Bearer {{authToken}}
-Content-Type: application/json
-
-{
-  "input":[1,6,0,0,0,0,0,0,0,7,0,2,0,3,0,0,0,0,0,0,3,6,0,0,0,0,0,0,0,6,9,0,0,0,0,2,0,0,1,0,4,0,0,3,7,2,0,0,0,0,0,0,8,0,0,0,0,0,0,2,5,0,0,0,0,8,0,0,9,7,4,1,0,3,9,0,0,0,0,0,0],
-  "id":276042966
-}

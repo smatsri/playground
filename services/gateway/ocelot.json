@@ -3,7 +3,8 @@
     {
       "UpstreamPathTemplate": "/api/sudoku/{url}",
       "UpstreamHttpMethod": [
-        "Get"
+        "Get",
+        "Post"
       ],
       "DownstreamPathTemplate": "/api/{url}",
       "DownstreamScheme": "http",

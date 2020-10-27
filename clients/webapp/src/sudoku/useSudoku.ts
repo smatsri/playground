@@ -12,9 +12,10 @@ const defaultAvailable = Array(81)
       .map((_, i) => i + 1)
   );
 
-const ignore = () => { };
 
-export function useSudoku(input: number[], log = ignore): SudokuState {
+export type OnInputChange = (input: number[]) => void
+
+export function useSudoku(input: number[], onChange?: OnInputChange): SudokuState {
   const SW = useRef(Stopwatch());
   const [states, setStates] = useState<Partial<SudokuState>[]>([]);
   const [values, setValues] = useState(input);
@@ -49,7 +50,7 @@ export function useSudoku(input: number[], log = ignore): SudokuState {
       .filter(([a]) => !!a)
       .map(([_, i]) => i);
     setFixed(f);
-  }, [input]);
+  }, [input, onChange]);
 
   useEffect(() => {
     const nums = Array(9)
@@ -98,6 +99,8 @@ export function useSudoku(input: number[], log = ignore): SudokuState {
         newValues[index] = selected;
         setValues(newValues);
         saveState();
+        if (onChange)
+          onChange(newValues);
       }
     },
     setVisible(index, value) {

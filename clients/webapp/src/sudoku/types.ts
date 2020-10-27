@@ -32,3 +32,13 @@ export type StatItem = {
   time: number;
   values: number[];
 };
+
+export type Pazzle = {
+  pazzleId: number
+  input: number[]
+}
+
+export type UserState = {
+  username: string
+  pazzles: Pazzle[]
+}
