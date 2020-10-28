@@ -39,6 +39,6 @@ export type Pazzle = {
 }
 
 export type UserState = {
-  username: string
-  pazzles: Pazzle[]
+  current: Pazzle
+  pazzles: number[]
 }

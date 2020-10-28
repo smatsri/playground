@@ -7,13 +7,13 @@ axios.interceptors.request.use(config => {
   return config;
 })
 
-const baseIdentityUrl = `${baseUrl}identity/user/`;
+const baseIdentityUrl = `${baseUrl}/identity/user/`;
 
 export const login = (username: string, password: string): Promise<any> =>
   axios.post(baseIdentityUrl + "login", { username, password })
 
 export const logout = (): Promise<any> =>
-  axios.post(baseIdentityUrl + "token");
+  axios.post(baseIdentityUrl + "logout");
 
 export const profile = (): Promise<{ username: string }> =>
   axios.get(baseIdentityUrl + "profile");
