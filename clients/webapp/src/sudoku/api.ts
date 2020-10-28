@@ -1,17 +1,18 @@
 import * as api from "../api";
+import { sudokuBaseUrl } from "../api/config";
 import { Pazzle, UserState } from "./types";
 
 export const getUserState = async () => {
-  var res = await api.get<UserState>("sudoku/user");
+  var res = await api.get<UserState>(sudokuBaseUrl + "/user");
   return res.data;
 }
 
 export const setUserState = async (pazzle: Pazzle) => {
-  var res = await api.post<UserState>("sudoku/user/pazzle", pazzle);
+  var res = await api.post<UserState>(sudokuBaseUrl + "/user/pazzle", pazzle);
   return res.data;
 }
 
-const getPazzleUrl = (id?: number) => id ? "sudoku/pazzle/" + id : "sudoku/pazzle/";
+const getPazzleUrl = (id?: number) => sudokuBaseUrl + (id ? "/pazzle/" + id : "/pazzle");
 
 export const getPazzle = async (pazzleId?: number): Promise<Pazzle> => {
   const url = getPazzleUrl(pazzleId)

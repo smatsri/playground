@@ -1,5 +1,4 @@
 import axios, { Method } from "axios";
-import { baseUrl } from "./config";
 import { TokenManager } from "./token-manager";
 
 const getAuthHeader = async (): Promise<any> => {
@@ -12,7 +11,7 @@ const getAuthHeader = async (): Promise<any> => {
 const callApi = async <T>(url: string, method: Method, data?: any) => {
   const headers = await getAuthHeader();
   return await axios.request<T>({
-    url: baseUrl + url,
+    url,
     method,
     data,
     headers

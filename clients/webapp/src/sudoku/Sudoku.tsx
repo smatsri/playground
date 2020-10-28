@@ -183,7 +183,7 @@ const SudokuWrapper = () => {
     const fn = async () => {
       const userState = await getUserState()
       if (userState.pazzles.length > 0) {
-        setPazzle(userState.pazzles[0]);
+        setPazzle(userState.current);
       } else {
         const pazzle = await getPazzle();
         await setUserState(pazzle)

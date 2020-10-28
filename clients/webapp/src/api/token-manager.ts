@@ -9,7 +9,7 @@ export const TokenManager = (() => {
       return token;
     }
 
-    const res = await axios.get(baseUrl + "identity/user/token");
+    const res = await axios.get(baseUrl + "/identity/user/token");
     token = res.data.token;
     return token;
   }

@@ -15,8 +15,8 @@ export default function (app: Express) {
     const user = (req as any).user;
     const username = user.unique_name;
     const data = (req as any).body;
-
-    await db.savePazzle(username, data);
+    data.username = username;
+    await db.savePazzle(data);
     res.send({ ok: true });
   })
 
