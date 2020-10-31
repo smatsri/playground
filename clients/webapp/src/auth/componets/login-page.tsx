@@ -13,6 +13,7 @@ const ErrorMessage = ({ error }: { error: any }) => {
 type FormState = {
   username: string
   password: string
+  rememberMe: boolean
 }
 const LoginForm = () => {
   const auth = useAuth();
@@ -20,7 +21,7 @@ const LoginForm = () => {
   const history = useHistory();
 
   const onSubmit = async (values: FormState) => {
-    await auth.login(values.username, values.password);
+    await auth.login(values.username, values.password, values.rememberMe);
     history.push('/');
   }
 
@@ -44,6 +45,10 @@ const LoginForm = () => {
             required: true
           })} />
         <ErrorMessage error={errors.password} />
+      </div>
+      <div>
+        <label>Remember me</label>
+        <input type="checkbox" name="rememberMe" ref={register} />
       </div>
       <div>
         <button type="submit">Send</button>

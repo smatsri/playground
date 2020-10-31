@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -39,9 +40,9 @@ namespace IdentityService.Controller
     [Route("login")]
     [HttpPost]
     [AllowAnonymous]
-    public async Task<IActionResult> Login([FromBody] UserCred userCred)
+    public async Task<IActionResult> Login([FromBody] LoginRequest req)
     {
-      var credValid = creds.ContainsKey(userCred.Username) && creds[userCred.Username] == userCred.Password;
+      var credValid = creds.ContainsKey(req.Username) && creds[req.Username] == req.Password;
       if (!credValid)
       {
         return Unauthorized();
@@ -49,16 +50,24 @@ namespace IdentityService.Controller
 
       var claims = new List<Claim>
       {
-          new Claim(ClaimTypes.Name, userCred.Username),
-          new Claim(ClaimTypes.NameIdentifier, userCred.Username)
+          new Claim(ClaimTypes.Name, req.Username),
+          new Claim(ClaimTypes.NameIdentifier, req.Username)
       };
 
       var claimsIdentity = new ClaimsIdentity(
         claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
+      var signinProps = new AuthenticationProperties();
+      if (req.RememberMe)
+      {
+        signinProps.ExpiresUtc = DateTime.UtcNow.AddYears(1);
+        signinProps.IsPersistent = true;
+      }
+
       await HttpContext.SignInAsync(
           CookieAuthenticationDefaults.AuthenticationScheme,
-          new ClaimsPrincipal(claimsIdentity));
+          new ClaimsPrincipal(claimsIdentity),
+          signinProps);
 
       return Ok(new { success = true });
     }
@@ -88,9 +97,10 @@ namespace IdentityService.Controller
     }
   }
 
-  public class UserCred
+  public class LoginRequest
   {
     public string Username { get; set; }
     public string Password { get; set; }
+    public bool RememberMe { get; set; }
   }
 }

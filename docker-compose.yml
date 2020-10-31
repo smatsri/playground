@@ -22,21 +22,18 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
 
   api-gateway:
-    # image: pg/gateway
     build: ./services/gateway
     container_name: pg-gateway
     ports:
       - 2001:80
 
   webapp:
-    # image: pg/ui
     container_name: pg-webapp
     build: ./clients/webapp
     ports:
       - 2000:80
 
   sudoku:
-    # image: pg/sudoku1
     build: ./services/sudoku
     container_name: pg-sudoku
     environment:
@@ -45,7 +42,6 @@ services:
     #   - 2003:80
 
   identity:
-    # image: pg/identity
     build: ./services/identity
     container_name: pg-identity
     # ports:

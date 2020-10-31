@@ -5,7 +5,7 @@ export const Stopwatch = (startSec = 0) => {
   let totalSec = startSec;
   let listeners: OnTick[] = [];
   const start = () => {
-    id = <any>setInterval(() => {
+    id = setInterval(() => {
       totalSec++;
       for (const listener of listeners) {
         try {
