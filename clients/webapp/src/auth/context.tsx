@@ -9,14 +9,14 @@ export interface Guest {
 
 export interface LoggedInUser {
   isAuth: true
-  username: string
+  name: string
 }
 
 export type User = Guest | LoggedInUser
 
 export interface AuthState {
   user: User
-  login(username: string, password: string): Promise<any>;
+  login(username: string, password: string, rememberMe: boolean): Promise<any>;
   logout(): Promise<any>
 }
 
@@ -31,7 +31,7 @@ const useProvider = (): AuthState => {
       if (e.type === "AppInit") {
         const profile = await api.profile();
         if (profile) {
-          setUser({ isAuth: true, username: profile.username });
+          setUser({ isAuth: true, name: profile.name });
           publish({ type: "LoggedIn" });
         }
       }
@@ -40,10 +40,10 @@ const useProvider = (): AuthState => {
 
   return {
     user,
-    async login(username, password) {
-      const res = await api.login(username, password);
+    async login(username, password, rememberMe = false) {
+      const res = await api.login(username, password, rememberMe);
       const profile = await api.profile();
-      setUser({ isAuth: true, username: profile.username });
+      setUser({ isAuth: true, name: profile.name });
       publish({ type: "LoggedIn" })
       return res;
     },

@@ -10,7 +10,9 @@ const Guest = () => {
 }
 
 const LoggedIn = ({ user }: { user: LoggedInUser }) => {
-  return <div>Welcome {user.username}</div>
+  console.log(user);
+
+  return <div>Welcome {user.name}</div>
 }
 
 

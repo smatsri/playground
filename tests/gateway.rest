@@ -1,7 +1,8 @@
-POST http://localhost:2001/api/identity/user/login
+POST http://localhost:4003/api/user/login
 Content-Type: application/json
 
 {
   "username": "shai",
-  "password": "123456"
+  "password": "123456",
+  "rememberMe": true
 }
