@@ -13,3 +13,7 @@ scrape_configs:
     # metrics_path defaults to '/metrics'
     static_configs:
       - targets: ["api-gateway:80"]
+  - job_name: "sudoku"
+    # metrics_path defaults to '/metrics'
+    static_configs:
+      - targets: ["sudoku:80"]

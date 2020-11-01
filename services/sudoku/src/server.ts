@@ -6,6 +6,7 @@ import { connect } from "./data";
 import pazzles from "./pazzles"
 import userData from "./user-data"
 import bodyParser from "body-parser"
+import prometheus from 'express-prometheus-middleware';
 
 
 const app = express();
@@ -13,6 +14,7 @@ const port = argv.port || 80;
 
 app.use(cors());
 app.use(bodyParser());
+app.use(prometheus({}))
 
 pazzles(app);
 
