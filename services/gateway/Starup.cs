@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Prometheus;
 
 namespace gateway
 {
@@ -22,6 +23,15 @@ namespace gateway
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+      var counter = Metrics.CreateCounter("api_gateway_path_counter", "Counts requests to the Locations API endpoints", new CounterConfiguration
+      {
+        LabelNames = new[] { "method", "endpoint" }
+      });
+      app.Use((context, next) =>
+      {
+        counter.WithLabels(context.Request.Method, context.Request.Path).Inc();
+        return next();
+      });
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
@@ -37,13 +47,14 @@ namespace gateway
         .AllowCredentials();
       });
 
-
+      app.UseHttpMetrics();
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapGet("/", async context =>
         {
           await context.Response.WriteAsync("Hello World!");
         });
+        endpoints.MapMetrics();
       });
 
       app.UseOcelot().Wait();
