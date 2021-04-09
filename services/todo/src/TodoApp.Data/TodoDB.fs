@@ -1,9 +1,11 @@
 ﻿namespace TodoApp.Data
 open TodoApp.Domain
 open Microsoft.EntityFrameworkCore
+open System
 
-type TodoDB(options) =
-  inherit DbContext(options)
+
+type TodoDB(configure: Action<DbContextOptionsBuilder>) =
+  inherit DbContext()
 
   [<DefaultValue>]
   val mutable todoItems:DbSet<TodoItem>
@@ -11,3 +13,6 @@ type TodoDB(options) =
   member x.TodoItems  
     with get () = x.todoItems
     and set v = x.todoItems <- v
+
+  override x.OnConfiguring (options:DbContextOptionsBuilder) = 
+    configure.Invoke(options)
