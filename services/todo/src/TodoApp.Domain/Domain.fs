@@ -1,11 +1,13 @@
 ﻿namespace TodoApp.Domain
 
+open System
+
 
 type ItemStatus =
-  | Pending
-  | Active
-  | Done
-  | Suspended
+  | Pending = 0
+  | Active = 1
+  | Done = 2
+  | Suspended = 3
 
 [<CLIMutable>]
 type TodoItem =
