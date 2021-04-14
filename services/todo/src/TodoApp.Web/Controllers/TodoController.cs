@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using TodoApp.Data;
-using TodoApp.Domain;
 using TodoApp.Web.Models;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using System;
+using TodoApp.Services;
+using TodoApp.Services.Models;
+using TodoApp.Domain;
 
 namespace TodoApp.Web.Controllers
 {
@@ -13,54 +11,24 @@ namespace TodoApp.Web.Controllers
 	[Route("api/todo")]
 	public class TodoController : ControllerBase
 	{
-		private readonly TodoAppContext db;
+		private readonly ITodoItemService itemService;
 
-		public TodoController(TodoAppContext db)
+		public TodoController(ITodoItemService itemService)
 		{
-			this.db = db;
+			this.itemService = itemService;
 		}
 
 		[HttpGet]
-		public async Task<ActionResult> Get([FromQuery] GetTodoItemsRequest requst)
+		public async Task<ActionResult> Get([FromQuery] Search requst)
 		{
-			var query = db.TodoItems.AsQueryable();
-			
-			// filter
-			if (!string.IsNullOrEmpty(requst.Filter.Title))
-				query = query.Where(a => a.Title.Contains(requst.Filter.Title));
-			if (requst.Filter.Status.HasValue)
-				query = query.Where(a => a.Status == requst.Filter.Status);
-
-			var total = await query.CountAsync();
-
-
-			var items = await query
-				.OrderByDescending(a => a.CreateOn)
-				.Skip(requst.Skip)
-				.Take(GetTake(requst.Take))
-				.ToArrayAsync();
-
-			var response = new GetTodoItemsResponse
-			{
-				Items = items,
-				Total = total
-			};
-
-			return Ok(response);
-
-			static int GetTake(int value) => value switch
-			{
-				<= 0 => 10,
-				> 1000 => 1000,
-				_ => value,
-			};
-
+			var page = await itemService.Search(requst);
+			return Ok(page);
 		}
 
 		[Route("{id}"), HttpGet]
 		public async Task<ActionResult> GetById(int id)
 		{
-			var item = await db.TodoItems.FindAsync(id);
+			var item = await itemService.GetById(id);
 			if (item == null)
 			{
 				return NotFound();
@@ -71,18 +39,22 @@ namespace TodoApp.Web.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Add(CreateRequest request)
 		{
-			var item = new TodoItem
-			{
-				Status = TodoItemStatus.Pending,
-				Title = request.Title,
-				CreateOn = DateTime.UtcNow
-			};
-
-			db.Add(item);
-
-			await db.SaveChangesAsync();
-
+			var item = await itemService.Create(request.Title);
 			return Ok(item);
+		}
+
+		[Route("{id}"), HttpDelete]
+		public async Task<ActionResult> Delete(int id)
+		{
+			await itemService.Delete(id);
+			return Ok();
+		}
+
+		[HttpPatch]
+		public async Task<ActionResult> Update(Update update)
+		{
+			await itemService.Update(update);
+			return Ok();
 		}
 	}
 }

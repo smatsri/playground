@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data;
+using TodoApp.Services;
 
 namespace TodoApp.Web
 {
@@ -25,6 +26,8 @@ namespace TodoApp.Web
 				var connstr = Configuration.GetConnectionString("TodoApp");
 				o.UseSqlServer(connstr);
 			});
+
+			services.AddTransient<ITodoItemService, TodoItemService>();
 
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
