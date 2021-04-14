@@ -8,8 +8,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-    ports:
-      - 27017:27017
+    # ports:
+      # - 27017:27017
 
   mongo-express:
     image: mongo-express
@@ -26,7 +26,7 @@ services:
     container_name: pg-prometheus
     restart: always
     ports:
-      - 9090:9090
+      - 2090:9090
     volumes:
       - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
 
@@ -37,7 +37,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=P@ssw0rd
     restart: always
     ports:
-      - 9080:3000
+      - 2080:3000
 
   api-gateway:
     build: ./services/gateway
