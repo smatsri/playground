@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using TodoApp.Web.Models;
 using TodoApp.Services;
 using TodoApp.Services.Models;
-using TodoApp.Domain;
 
 namespace TodoApp.Web.Controllers
 {
