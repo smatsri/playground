@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="TodoDB.fs" />
-    <Compile Include="Design.fs" />
+    <Compile Include="TodoItemRepository.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TodoApp.Domain\TodoApp.Domain.fsproj" />
@@ -16,5 +16,6 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
   </ItemGroup>
 </Project>

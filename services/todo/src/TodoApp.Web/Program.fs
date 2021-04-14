@@ -9,21 +9,28 @@ open Microsoft.AspNetCore.Builder
 open Giraffe
 open Microsoft.EntityFrameworkCore
 open Microsoft.Extensions.Configuration
+open TodoApp.Data
 
-let configureServices (ctx:WebHostBuilderContext) (services: IServiceCollection) = 
-      
-    // register db
+let configureServices (ctx: WebHostBuilderContext) (services: IServiceCollection) =
+
+  // register db
   let connStr =
     ctx.Configuration.GetConnectionString "TodoApp"
 
-  services.AddDbContext<TodoApp.Data.TodoDB>(
-    fun builder -> 
-      builder.UseSqlServer(connStr,
-        fun o -> 
-          o.MigrationsAssembly("TodoApp.Migrations") 
-          |> ignore) 
-    |> ignore)
+  services.AddDbContext<TodoApp.Data.TodoDB>
+    (fun builder ->
+      builder.UseSqlServer(
+        connStr,
+        fun o ->
+          o.MigrationsAssembly("TodoApp.Migrations")
+          |> ignore
+      )
+      |> ignore)
   |> ignore
+
+  services.AddTransient<ITodoRepository, TodoRepository>()
+  |> ignore
+
   services.AddGiraffe() |> ignore
 
 let configureApp (app: IApplicationBuilder) =
@@ -32,7 +39,7 @@ let configureApp (app: IApplicationBuilder) =
     .UseStaticFiles()
     .UseGiraffe(App.handler)
   |> ignore
-   
+
 let configureLogging (builder: ILoggingBuilder) =
   builder.AddConsole().AddDebug() |> ignore
 
@@ -51,4 +58,5 @@ let main args =
     .ConfigureWebHostDefaults(Action<IWebHostBuilder> configure)
     .Build()
     .Run()
-  1
+
+  0
