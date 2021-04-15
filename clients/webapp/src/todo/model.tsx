@@ -1,5 +1,5 @@
 export enum TodoItemStatus {
-  Pending = 1,
+  Active = 1,
   Done = 2,
   Suspended = 3
 }
@@ -17,7 +17,7 @@ export type Page<T> = {
 }
 
 export const StatusName = {
-  [TodoItemStatus.Pending]: "Pending",
+  [TodoItemStatus.Active]: "Active",
   [TodoItemStatus.Done]: "Done",
   [TodoItemStatus.Suspended]: "Suspended"
 }

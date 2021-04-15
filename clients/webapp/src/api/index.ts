@@ -20,4 +20,5 @@ const callApi = async <T>(url: string, method: Method, data?: any) => {
 
 export const get = <T>(url: string) => callApi<T>(url, "GET");
 export const post = <T>(url: string, data: any) => callApi<T>(url, "POST", data);
+export const patch = <T>(url: string, data: any) => callApi<T>(url, "PATCH", data);
 

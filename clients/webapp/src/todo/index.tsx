@@ -1,21 +1,61 @@
-import React, { FC } from "react"
-import { StatusName, TodoItem } from "./model"
+import moment from "moment"
+import React, { FC, useEffect, useState } from "react"
+import { StatusName, TodoItem, TodoItemStatus } from "./model"
 import { TodoProvider, useTodoCtx } from "./state"
 
-const TodoItemCard: FC<TodoItem> =
-  ({ title, status }) => {
-    return (
-      <div>
-        <h3>{title}</h3>
-        <div>Status: {StatusName[status]}</div>
-      </div>
-    )
-  }
+import "./style.scss"
 
-const Items = () => {
+
+
+type BtnsProps = {
+  item: TodoItem
+}
+const Btns = ({ item }: BtnsProps) => {
+  const { setStatus } = useTodoCtx()
+  switch (item.status) {
+    case TodoItemStatus.Active: {
+      const markAsDone = () => {
+        setStatus(item, TodoItemStatus.Done)
+      }
+
+      return (
+        <>
+          <button className="done" onClick={markAsDone}>mark as done</button>
+        </>
+      )
+    }
+
+    default:
+      return (
+        <div></div>
+      )
+  }
+}
+const TodoItemCard = (item: TodoItem) => {
+  const { title, status, createOn } = item
+  const [formated, setFormated] = useState<any>();
+  useEffect(() => {
+    setFormated(moment(createOn).format('YYYY.MM.DD H:mm'))
+  }, [createOn])
+  return (
+    <div className="card">
+      <div className={"status s" + status}></div>
+      <div className="title">{title}</div>
+
+      <div className="btns">
+        <Btns item={item} />
+      </div>
+      <div className="info">
+        {formated}
+      </div>
+    </div>
+  )
+}
+
+const Cards = () => {
   const { items } = useTodoCtx();
   return (
-    <div>
+    <div className="cards">
       {items.map(item => <TodoItemCard key={item.id} {...item} />)}
     </div>
   )
@@ -25,10 +65,12 @@ const Todo: FC<any> =
   () => {
 
     return (
-      <TodoProvider>
-        <h1>Todo</h1>
-        <Items />
-      </TodoProvider>
+      <div className="todo">
+        <TodoProvider>
+          <h1>Todo</h1>
+          <Cards />
+        </TodoProvider>
+      </div>
     )
   }
 
