@@ -10,6 +10,7 @@ import { AuthProvider } from "./auth/context";
 import HeaderLogin from "./auth/componets/header-login";
 import LoginPage from "./auth/componets/login-page";
 import { publish } from "./events";
+import Todo from "./todo";
 
 const NavStyle = styled.div`
   nav ul {
@@ -42,28 +43,32 @@ const AppRouter = () => (
     <Route path="/login">
       <LoginPage />
     </Route>
+    <Route path="/todo">
+      <Todo />
+    </Route>
     <Route path="/">
-      <Sudoku />
+      <Todo />
     </Route>
   </Switch>
 )
+
+const links = [
+  ["/todo", "todo"],
+  ["/sudoku", "sudoku"],
+  ["/chat", "chat"],
+  ["/seven", "seven"],
+  ["/xo", "xo"],
+].map(([to, title], index) => (
+  <li key={index}>
+    <Link to={to}>{title}</Link>
+  </li>
+))
 
 const Nav = () => (
   <NavStyle>
     <nav>
       <ul>
-        <li>
-          <Link to="/sudoku">sudoku</Link>
-        </li>
-        <li>
-          <Link to="/chat">chat</Link>
-        </li>
-        <li>
-          <Link to="/seven">seven</Link>
-        </li>
-        <li>
-          <Link to="/xo">xo</Link>
-        </li>
+        {links}
       </ul>
     </nav>
   </NavStyle>
