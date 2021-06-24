@@ -1,11 +1,9 @@
 import moment from "moment"
-import React, { FC, useEffect, useState } from "react"
-import { StatusName, TodoItem, TodoItemStatus } from "./model"
+import React, { useEffect, useState } from "react"
+import { TodoItem, TodoItemStatus } from "./model"
 import { TodoProvider, useTodoCtx } from "./state"
 
 import "./style.scss"
-
-
 
 type BtnsProps = {
   item: TodoItem
@@ -19,9 +17,7 @@ const Btns = ({ item }: BtnsProps) => {
       }
 
       return (
-        <>
-          <button className="done" onClick={markAsDone}>mark as done</button>
-        </>
+        <button className="done" onClick={markAsDone}>mark as done</button>
       )
     }
 
@@ -61,17 +57,15 @@ const Cards = () => {
   )
 }
 
-const Todo: FC<any> =
-  () => {
-
-    return (
-      <div className="todo">
-        <TodoProvider>
-          <h1>Todo</h1>
-          <Cards />
-        </TodoProvider>
-      </div>
-    )
-  }
+const Todo = () => {
+  return (
+    <div className="todo">
+      <TodoProvider>
+        <h1>Todo</h1>
+        <Cards />
+      </TodoProvider>
+    </div>
+  )
+}
 
 export default Todo;
