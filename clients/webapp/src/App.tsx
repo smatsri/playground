@@ -11,6 +11,7 @@ import HeaderLogin from "./auth/componets/header-login";
 import LoginPage from "./auth/componets/login-page";
 import { publish } from "./events";
 import Todo from "./todo";
+import OnlineXO from "./online-xo";
 
 const NavStyle = styled.div`
   nav ul {
@@ -37,6 +38,9 @@ const AppRouter = () => (
     <Route path="/xo">
       <XO />
     </Route>
+    <Route path="/onlinexo">
+      <OnlineXO />
+    </Route>
     <Route path="/sudoku">
       <Sudoku />
     </Route>
@@ -47,7 +51,7 @@ const AppRouter = () => (
       <Todo />
     </Route>
     <Route path="/">
-      <Todo />
+      <OnlineXO />
     </Route>
   </Switch>
 )
@@ -58,6 +62,7 @@ const links = [
   ["/chat", "chat"],
   ["/seven", "seven"],
   ["/xo", "xo"],
+  ["/onlinexo", "online-xo"],
 ].map(([to, title], index) => (
   <li key={index}>
     <Link to={to}>{title}</Link>
