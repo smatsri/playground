@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OnlineXO.Core\OnlineXO.Core.csproj" />
     <ProjectReference Include="..\OnlineXO.GameManagment\OnlineXO.GameManagment.csproj" />
+    <ProjectReference Include="..\OnlineXO.Hubs\OnlineXO.Hubs.csproj" />
   </ItemGroup>
 
 </Project>

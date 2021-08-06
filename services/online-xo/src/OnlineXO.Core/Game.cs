@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Immutable;
+﻿using System.Linq;
 using System.Collections.Generic;
 
-namespace OnlineXO.Core.Login
+namespace OnlineXO.Core
 {
 	public enum Player
 	{
@@ -16,11 +14,11 @@ namespace OnlineXO.Core.Login
 
 	public abstract record GameResult;
 	public record Tie : GameResult;
-	public record WonByPlayer(Player Player, int[] cells) : GameResult;
+	public record WonByPlayer(Player Player, int[] Cells) : GameResult;
 
 
 	public abstract record GameState;
-	public record Pending : GameState;
+	public record Pending(HashSet<Player> Players) : GameState;
 	public record Running(
 		Player CurentPlayer,
 		CellState[] Board
@@ -30,12 +28,19 @@ namespace OnlineXO.Core.Login
 
 	public abstract record Command;
 
-	public record Start : Command;
+	public record Join(Player Player) : Command;
 	public record SetCell(int Index) : Command;
+
+	public abstract record Event;
+	public record Joined(Player Player): Event;
+	public record GameStarted(): Event;
+	public record WaitingOn(Player Player) : Event;
+	public record CellSet(int Index, Player Player): Event;
+	public record GameCompleted(GameResult Result): Event;
 
 	public static class Game
 	{
-		public static readonly GameState Empty = new Pending();
+		public static readonly GameState Empty = new Pending(new HashSet<Player>());
 		private static readonly EmptyCell[] EmptyBoard = Enumerable.Range(0, 9).Select(a => new EmptyCell()).ToArray();
 
 		private static readonly HashSet<int>[] Winners =
@@ -57,10 +62,24 @@ namespace OnlineXO.Core.Login
 
 		public static GameState Apply(this GameState state, Command command) => (state, command) switch
 		{
-			(Pending, Start) => new Running(Player.X, EmptyBoard),
+			(Pending p, Join j) => p.Join(j),
 			(Running r, SetCell c) => r.SetCell(c.Index),
 			_ => state,
 		};
+
+		static GameState Join(this Pending pending, Join join)
+		{
+			if (pending.Players.Contains(join.Player))
+				return pending;
+
+			pending.Players.Add(join.Player);
+
+			if (pending.Players.Count == 1)
+				return new Pending(pending.Players);
+
+			return new Running(Player.X, EmptyBoard);
+			
+		}
 
 		static GameState SetCell(this Running state, int index)
 		{
@@ -73,8 +92,8 @@ namespace OnlineXO.Core.Login
 			board[index] = new Occupied(state.CurentPlayer);
 
 			var res = GetGameResult(board);
-			return res != null 
-				? new CompletedGame(res) 
+			return res != null
+				? new CompletedGame(res)
 				: new Running(state.CurentPlayer.Next(), state.Board);
 		}
 

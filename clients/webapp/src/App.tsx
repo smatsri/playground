@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import "./App.css";
 import Sudoku from "./sudoku/Sudoku";
 import XO from "./xo";
@@ -51,7 +51,7 @@ const AppRouter = () => (
       <Todo />
     </Route>
     <Route path="/">
-      <OnlineXO />
+      <Redirect to="onlinexo" />
     </Route>
   </Switch>
 )

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineXO.Core", "OnlineXO.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineXO.GameSystem", "OnlineXO.GameSystem\OnlineXO.GameSystem.csproj", "{17BA5933-6B86-41DE-813D-A6B9414A2CBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineXO.GameManagment", "OnlineXO.GameManagment\OnlineXO.GameManagment.csproj", "{3F0485ED-E0ED-4B5B-B3C2-E45EF3C66574}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineXO.GameManagment", "OnlineXO.GameManagment\OnlineXO.GameManagment.csproj", "{3F0485ED-E0ED-4B5B-B3C2-E45EF3C66574}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineXO.Hubs", "OnlineXO.Hubs\OnlineXO.Hubs.csproj", "{9F205D58-9D77-4245-904B-4D11B959B94C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,18 @@ Global
 		{3F0485ED-E0ED-4B5B-B3C2-E45EF3C66574}.Release|x64.Build.0 = Release|Any CPU
 		{3F0485ED-E0ED-4B5B-B3C2-E45EF3C66574}.Release|x86.ActiveCfg = Release|Any CPU
 		{3F0485ED-E0ED-4B5B-B3C2-E45EF3C66574}.Release|x86.Build.0 = Release|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Debug|x64.Build.0 = Debug|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Debug|x86.Build.0 = Debug|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Release|x64.ActiveCfg = Release|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Release|x64.Build.0 = Release|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Release|x86.ActiveCfg = Release|Any CPU
+		{9F205D58-9D77-4245-904B-4D11B959B94C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

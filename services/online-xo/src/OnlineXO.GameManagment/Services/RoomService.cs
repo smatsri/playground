@@ -16,12 +16,19 @@ namespace OnlineXO.GameManagment
 			this.db = db;
 		}
 
-		public Task<Room[]> GetOpenRooms()
+		public Task<Room[]> GetRooms()
 		{
 			return db.Rooms
 				.Where(a => a.State == RoomState.Opened)
 				.OrderByDescending(a => a.CreateDate)
 				.ToArrayAsync();
+		}
+
+		public Task<Room> GetRoom(int id)
+		{
+			return db.Rooms
+				.Where(a => a.State == RoomState.Opened)
+				.FirstOrDefaultAsync(a => a.Id == id);
 		}
 
 		public async Task<Room> CreateRoom(string name)

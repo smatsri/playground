@@ -13,6 +13,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineXO.Api.Authentication;
+using OnlineXO.Hubs.Startup;
 
 namespace OnlineXO.Api
 {
@@ -28,15 +29,15 @@ namespace OnlineXO.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddCors();
-
-			services.AddGameManger(Configuration);
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "OnlineXO.Api", Version = "v1" });
 			});
-
 			services.AddAuthentication(PlaygroundAuthenticationDefaults.AuthenticationScheme).AddPlayground();
+
+			services.AddGameManger(Configuration);
+			services.AddGameHubs();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -73,7 +74,7 @@ namespace OnlineXO.Api
 			});
 
 			app.UseGameManger();
-
+			app.UseGameHubs();
 		}
 	}
 }
