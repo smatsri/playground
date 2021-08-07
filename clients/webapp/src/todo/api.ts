@@ -1,6 +1,6 @@
 import * as api from "../api";
 import { baseUrl } from "../api/config";
-import { Page, TodoItem, TodoItemStatus } from "./model";
+import { Page, TodoItem } from "./model";
 
 const BASE_URL = baseUrl + "/todo"
 
