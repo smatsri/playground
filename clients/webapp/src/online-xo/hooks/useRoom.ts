@@ -3,7 +3,7 @@ import { useRouteMatch } from "react-router-dom";
 import { RoomModel } from "../../__generated__/onlinexo/online-xo";
 import { getRoom } from "../services/api";
 
-const apply =  (f :() => any ) => () => f()
+const apply =  (f :() => any ) => () => {f()}
 
 const EmptyRoom: RoomModel = {
   id: 0,

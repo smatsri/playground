@@ -1,14 +1,14 @@
 import React from "react";
 import Routes from "./routes";
+import "./styles/online-xo.scss"
 
 
 const OnlineXO = () => {
-
   return (
-    <div>
-      <h1>
-        Online XO
-      </h1>
+    <div className="online-xo">
+      <header>
+        <h2>online xo</h2>
+      </header>
       <div>
         <Routes />
       </div>
