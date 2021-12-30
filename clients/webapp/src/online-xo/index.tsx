@@ -1,7 +1,7 @@
 import React from "react";
 import Routes from "./routes";
 import "./styles/online-xo.scss"
-
+import "./services/hub"
 
 const OnlineXO = () => {
   return (

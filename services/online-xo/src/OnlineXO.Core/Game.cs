@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace OnlineXO.Core
 {
@@ -18,6 +19,7 @@ namespace OnlineXO.Core
 
 
 	public abstract record GameState;
+
 	public record Pending(HashSet<Player> Players) : GameState;
 	public record Running(
 		Player CurentPlayer,
@@ -27,20 +29,21 @@ namespace OnlineXO.Core
 	public record CompletedGame(GameResult Result) : GameState;
 
 	public abstract record Command;
-
 	public record Join(Player Player) : Command;
 	public record SetCell(int Index) : Command;
+	public record Reset : Command;
 
 	public abstract record Event;
-	public record Joined(Player Player): Event;
-	public record GameStarted(): Event;
+	public record Joined(Player Player) : Event;
+	public record GameStarted() : Event;
 	public record WaitingOn(Player Player) : Event;
-	public record CellSet(int Index, Player Player): Event;
-	public record GameCompleted(GameResult Result): Event;
+	public record CellSet(int Index, Player Player) : Event;
+	public record GameCompleted(GameResult Result) : Event;
+	public record GameWasReset : Event;
 
 	public static class Game
 	{
-		public static readonly GameState Empty = new Pending(new HashSet<Player>());
+		public static GameState Empty() => new Pending(new HashSet<Player>());
 		private static readonly EmptyCell[] EmptyBoard = Enumerable.Range(0, 9).Select(a => new EmptyCell()).ToArray();
 
 		private static readonly HashSet<int>[] Winners =
@@ -60,41 +63,75 @@ namespace OnlineXO.Core
 
 
 
-		public static GameState Apply(this GameState state, Command command) => (state, command) switch
+		public static (GameState, ICollection<Event>) Apply(
+			this GameState state,
+			Command command)
 		{
-			(Pending p, Join j) => p.Join(j),
-			(Running r, SetCell c) => r.SetCell(c.Index),
-			_ => state,
-		};
+			var events = new List<Event>();
+			var nextStte = GetState(state, command, events);
+			return (nextStte, events);
 
-		static GameState Join(this Pending pending, Join join)
+			static GameState GetState(GameState state, Command command, List<Event> events) =>
+				(state, command) switch
+				{
+					(Pending p, Join j) => p.Join(j, events),
+					(Running r, SetCell c) => r.SetCell(c.Index, events),
+					(GameState s, Reset _) => s.Reset(events),
+					_ => state,
+				};
+		}
+
+		static GameState Join(this Pending pending, Join join, ICollection<Event> events)
 		{
 			if (pending.Players.Contains(join.Player))
 				return pending;
 
 			pending.Players.Add(join.Player);
+			events.Add(new Joined(join.Player));
 
 			if (pending.Players.Count == 1)
 				return new Pending(pending.Players);
 
+			events.Add(new GameStarted());
+
 			return new Running(Player.X, EmptyBoard);
-			
+
 		}
 
-		static GameState SetCell(this Running state, int index)
+		static GameState SetCell(
+			this Running state,
+			int index,
+			ICollection<Event> events)
 		{
-
 			var cell = state.Board[index];
 			if (cell is Occupied)
 				return state;
 
 			var board = state.Board[..];
 			board[index] = new Occupied(state.CurentPlayer);
+			events.Add(new CellSet(index, state.CurentPlayer));
 
 			var res = GetGameResult(board);
-			return res != null
-				? new CompletedGame(res)
-				: new Running(state.CurentPlayer.Next(), state.Board);
+
+			if (res != null)
+			{
+				events.Add(new GameCompleted(res));
+				return new CompletedGame(res);
+			}
+			else
+			{
+
+				return new Running(state.CurentPlayer.Next(), state.Board);
+			}
+
+		}
+
+		static GameState Reset(this GameState gameState,
+			ICollection<Event> events)
+		{
+			events.Add(new GameWasReset());
+			return Empty();
+
 		}
 
 		static Player Next(this Player p) => p switch

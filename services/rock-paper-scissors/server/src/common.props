@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <XunitVersion>2.4.1</XunitVersion>
+    <AkkaVersion>1.4.29</AkkaVersion>
+    <HoconVersion>2.0.3</HoconVersion>
+    <AkkaBootstrapVersion>0.5.3</AkkaBootstrapVersion>
+    <AkkaHealthCheckVersion>0.3.2</AkkaHealthCheckVersion>
+    <PetabridgeCmdVersion>1.0.2</PetabridgeCmdVersion>
+    <NetCoreVersion>net5</NetCoreVersion>
+    <MicrosoftExtensionsVersion>6.0.0</MicrosoftExtensionsVersion>
+  </PropertyGroup>
+</Project>

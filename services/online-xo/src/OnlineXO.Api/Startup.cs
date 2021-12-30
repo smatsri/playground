@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OnlineXO.Api.Authentication;
 using OnlineXO.Hubs.Startup;
+using OnlineXO.Chat.Startup;
 
 namespace OnlineXO.Api
 {
@@ -28,6 +29,7 @@ namespace OnlineXO.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddSignalR();
 			services.AddCors();
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
@@ -38,6 +40,7 @@ namespace OnlineXO.Api
 
 			services.AddGameManger(Configuration);
 			services.AddGameHubs();
+			services.AddChat();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -75,6 +78,7 @@ namespace OnlineXO.Api
 
 			app.UseGameManger();
 			app.UseGameHubs();
+			app.UseChat();
 		}
 	}
 }

@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OnlineXO.Chat\OnlineXO.Chat.csproj" />
     <ProjectReference Include="..\OnlineXO.Core\OnlineXO.Core.csproj" />
     <ProjectReference Include="..\OnlineXO.GameManagment\OnlineXO.GameManagment.csproj" />
     <ProjectReference Include="..\OnlineXO.Hubs\OnlineXO.Hubs.csproj" />

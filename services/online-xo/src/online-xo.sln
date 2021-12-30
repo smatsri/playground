@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineXO.Api", "OnlineXO.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineXO.Core", "OnlineXO.Core\OnlineXO.Core.csproj", "{0FC540CD-5BA4-400A-899E-DCCB2674424B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineXO.GameSystem", "OnlineXO.GameSystem\OnlineXO.GameSystem.csproj", "{17BA5933-6B86-41DE-813D-A6B9414A2CBD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineXO.GameManagment", "OnlineXO.GameManagment\OnlineXO.GameManagment.csproj", "{3F0485ED-E0ED-4B5B-B3C2-E45EF3C66574}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineXO.Hubs", "OnlineXO.Hubs\OnlineXO.Hubs.csproj", "{9F205D58-9D77-4245-904B-4D11B959B94C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineXO.Hubs", "OnlineXO.Hubs\OnlineXO.Hubs.csproj", "{9F205D58-9D77-4245-904B-4D11B959B94C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineXO.Chat", "OnlineXO.Chat\OnlineXO.Chat.csproj", "{914041F3-6B52-4726-B760-569D4486CE2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,18 +47,6 @@ Global
 		{0FC540CD-5BA4-400A-899E-DCCB2674424B}.Release|x64.Build.0 = Release|Any CPU
 		{0FC540CD-5BA4-400A-899E-DCCB2674424B}.Release|x86.ActiveCfg = Release|Any CPU
 		{0FC540CD-5BA4-400A-899E-DCCB2674424B}.Release|x86.Build.0 = Release|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Debug|x64.Build.0 = Debug|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Debug|x86.Build.0 = Debug|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Release|x64.ActiveCfg = Release|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Release|x64.Build.0 = Release|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Release|x86.ActiveCfg = Release|Any CPU
-		{17BA5933-6B86-41DE-813D-A6B9414A2CBD}.Release|x86.Build.0 = Release|Any CPU
 		{3F0485ED-E0ED-4B5B-B3C2-E45EF3C66574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3F0485ED-E0ED-4B5B-B3C2-E45EF3C66574}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F0485ED-E0ED-4B5B-B3C2-E45EF3C66574}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -83,6 +71,18 @@ Global
 		{9F205D58-9D77-4245-904B-4D11B959B94C}.Release|x64.Build.0 = Release|Any CPU
 		{9F205D58-9D77-4245-904B-4D11B959B94C}.Release|x86.ActiveCfg = Release|Any CPU
 		{9F205D58-9D77-4245-904B-4D11B959B94C}.Release|x86.Build.0 = Release|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Debug|x64.Build.0 = Debug|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Debug|x86.Build.0 = Debug|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Release|x64.ActiveCfg = Release|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Release|x64.Build.0 = Release|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Release|x86.ActiveCfg = Release|Any CPU
+		{914041F3-6B52-4726-B760-569D4486CE2D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
