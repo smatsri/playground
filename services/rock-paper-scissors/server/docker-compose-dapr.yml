@@ -1,0 +1,49 @@
+version: "3.7"
+
+x-logging: &default-logging
+  driver: "fluentd"
+  options:
+    fluentd-address: "localhost:24224"
+    fluentd-async-connect: "true"
+    tag: "{{.Name}}-{{.ID}}"
+
+services:
+  ##### Website & DAPR Sidecar #####
+  api:
+    build:
+      context: ./src/api
+      dockerfile: Dockerfile
+    container_name: rps_api
+    env_file:
+      - .env
+    ports:
+      - "5000:80"
+    logging: *default-logging
+
+  api_dapr:
+    image: "daprio/daprd:1.2.2"
+    command:
+      [
+        "./daprd",
+        "-app-id",
+        "api",
+        "-app-port",
+        "80",
+        "-config",
+        "/dapr/config.yaml",
+        "-components-path",
+        "/dapr/local",
+      ]
+    volumes:
+      - "./components:/dapr"      
+    depends_on:
+      - api
+    network_mode: "service:api"
+    env_file:
+      - .env
+    logging: *default-logging
+
+networks:
+  default:
+    external:
+      name: dapr_network

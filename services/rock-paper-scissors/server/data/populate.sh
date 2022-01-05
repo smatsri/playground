@@ -1,0 +1,2 @@
+echo "Importing product data...."
+mongoimport --db=rps --collection=users --file=/data/users.json --jsonArray --upsertFields=username --mode=upsert --username=admin --password=admin --authenticationDatabase=admin

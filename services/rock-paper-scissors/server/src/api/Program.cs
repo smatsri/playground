@@ -15,11 +15,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.MapGet("test", () => "asd");
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+app.MapFallback(()=>"not found");
 
 app.Run();
